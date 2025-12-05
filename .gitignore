@@ -1,0 +1,32 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files
+*.csv
+*.tsv
+*.txt
+*.sqlite
+*.db
+
+# macOS
+.DS_Store
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# System files
+Thumbs.db

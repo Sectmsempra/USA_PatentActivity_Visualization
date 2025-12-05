@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U.S. Patent Activity by Metropolitan Area (2015)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(99, 125, 155, 0.08), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(74, 105, 189, 0.06), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.08),
+                0 1px 3px rgba(0,0,0,0.05);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2d3e50 0%, #3d5167 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+        
+        .subtitle {
+            font-size: 1.15em;
+            opacity: 0.92;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.3px;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+        
+        .map-section {
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #fafbfc 0%, #f0f3f7 100%);
+            position: relative;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+        
+        .map-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 
+                0 8px 32px rgba(0,0,0,0.06),
+                0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(99, 125, 155, 0.08);
+        }
+        
+        .map-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 16px 48px rgba(0,0,0,0.08),
+                0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .content-section {
+            padding: 50px 40px;
+            line-height: 1.85;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+        
+        h2 {
+            color: #2d3e50;
+            font-size: 2.1em;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #4a69bd, #6a89cc);
+            border-radius: 2px;
+        }
+        
+        p {
+            color: #4a5568;
+            font-size: 1.06em;
+            margin-bottom: 24px;
+            text-align: justify;
+            line-height: 1.85;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        p2 {
+            color: #ffffff;
+            font-size: 1.06em;
+            margin-bottom: 24px;
+            text-align: justify;
+            line-height: 1.85;
+            position: relative;
+            padding-left: 18px;
+        }
+        
+        p::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 3px;
+            height: calc(100% - 12px);
+            background: linear-gradient(180deg, #6a89cc 0%, rgba(106, 137, 204, 0.2) 100%);
+            border-radius: 2px;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #4a69bd 0%, #5a7ec7 100%);
+            padding: 35px;
+            border-radius: 16px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 12px 40px rgba(74, 105, 189, 0.15),
+                0 4px 12px rgba(74, 105, 189, 0.1);
+            animation: fadeInUp 0.6s ease-out 0.5s both;
+        }
+        
+        .highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.06) 100%);
+        }
+        
+        .highlight h3 {
+            color: white;
+            margin-bottom: 22px;
+            font-size: 1.45em;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+        
+        .highlight ul {
+            list-style: none;
+            padding-left: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .highlight li {
+            padding: 12px 0;
+            color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            padding-left: 28px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.75;
+        }
+        
+        .highlight li:hover {
+            transform: translateX(6px);
+        }
+        
+        .highlight li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 1.2em;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .highlight li:hover:before {
+            transform: translateX(4px);
+        }
+        
+        .highlight li strong {
+            font-weight: 600;
+            color: white;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #2d3e50 0%, #3d5167 100%);
+            color: rgba(255, 255, 255, 0.92);
+            text-align: center;
+            padding: 30px;
+            font-size: 0.95em;
+            position: relative;
+            letter-spacing: 0.2px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .content-section {
+                padding: 30px 25px;
+            }
+            
+            .map-section {
+                padding: 30px 25px;
+            }
+            
+            p {
+                font-size: 1.02em;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>U.S. Patent Activity by Metropolitan Area (2015)</h1>
+        </header>
+        
+        <div class="map-section">
+            <div class="map-container">
+                <iframe title="U.S. Patent Activity by Metropolitan Area (2015)" aria-label="Choropleth map" id="datawrapper-chart-kxz2C" src="https://datawrapper.dwcdn.net/kxz2C/3/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="438" data-external="1"></iframe>
+                <script type="text/javascript">window.addEventListener("message",function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}});</script>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Regional Trends in Patent Distribution</h2>
+            
+            <p>The 2015 patent activity map reveals a pronounced geographic concentration of innovation across U.S. metropolitan areas, with coastal technology hubs demonstrating overwhelming dominance in patent generation. The San Francisco Bay Area and Silicon Valley emerge as the epicenter of American innovation, accounting for a disproportionate share of patent filings driven by the region's dense ecosystem of technology companies, venture capital, and research institutions. This concentration reflects decades of accumulated intellectual capital and infrastructure that continues to attract innovative enterprises.</p>
+            
+            <p>The West Coast corridor, extending from the Bay Area through Seattle, represents the nation's primary innovation belt, fueled by major technology corporations and a robust startup culture. Simultaneously, traditional manufacturing and research centers in the Northeast—including Boston, New York, and the Research Triangle—maintain significant patent activity, though at lower intensities than their West Coast counterparts. These regions leverage strong university research programs and established pharmaceutical and biotechnology sectors.</p>
+            
+            <p>A striking pattern emerges in the relative scarcity of patent activity across vast stretches of the American interior, particularly in rural and economically distressed regions. The Midwest shows moderate activity concentrated around specific metropolitan areas like Chicago and Detroit, reflecting legacy industrial innovation. Southern metropolitan areas display growing but still limited patent generation, suggesting emerging innovation capacity. This geographic disparity in patent distribution highlights persistent regional inequalities in access to capital, talent, and innovation infrastructure, raising important questions about inclusive economic development and the geographic distribution of technological advancement benefits across American communities.</p>
+            
+            <div class="highlight">
+                <h3>Key Observations</h3>
+                <ul>
+                    <li><strong>Technology Corridor Dominance:</strong> West Coast metropolitan areas lead in patent concentration, particularly California's innovation clusters</li>
+                    <li><strong>Urban Innovation Centers:</strong> Major metropolitan areas serve as primary patent generation hubs, reflecting infrastructure and talent advantages</li>
+                    <li><strong>Regional Disparities:</strong> Significant gaps exist between coastal innovation centers and interior regions, indicating uneven innovation capacity distribution</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p2>&copy; 2015 U.S. Patent Activity Analysis | Data Visualization Project</p2>
+        </footer>
+    </div>
+</body>
+</html>
